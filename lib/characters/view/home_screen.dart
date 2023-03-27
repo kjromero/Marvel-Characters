@@ -18,14 +18,8 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Characters'),
+        title: const Text('Characters'),
         actions: [
-          IconButton(
-            onPressed: () async {
-             // openAddUser(context);
-            },
-            icon: Icon(Icons.add),
-          ),
           IconButton(
             onPressed: () async {
               charactersViewModel.getCharacters();
@@ -49,16 +43,16 @@ class HomeScreen extends StatelessWidget {
     if (charactersViewModel.loading) {
       return const AppLoading();
     }
-    if (charactersViewModel.userError != null) {
+    if (charactersViewModel.characterError != null) {
       return AppError(
-        message: charactersViewModel.userError.message,
+        message:  "",
       );
     }
     return Expanded(
       child: ListView.separated(
         itemBuilder: (context, index) {
           Character character = charactersViewModel.charactersListModel[index];
-          return CharacterList(
+          return CharacterItem(
             character: character,
             onTap: () async {
               charactersViewModel.setSelectedCharacter(character);

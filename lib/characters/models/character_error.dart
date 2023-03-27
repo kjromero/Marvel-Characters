@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-CharacterError userErrorFromJson(String str) => CharacterError.fromJson(json.decode(str));
+CharacterError characterFromJson(String str) => CharacterError.fromJson(json.decode(str));
 
-String userErrorToJson(CharacterError data) => json.encode(data.toJson());
+String characterErrorToJson(CharacterError data) => json.encode(data.toJson());
 
 class CharacterError {
   CharacterError({

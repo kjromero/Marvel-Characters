@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:marvel_characters/characters/models/character_error.dart';
 import 'package:marvel_characters/characters/repo/characters_services.dart';
 
+import '../../utils/constants.dart';
 import '../models/character.dart';
 import '../repo/api_status.dart';
 
@@ -11,12 +12,12 @@ class CharactersViewModel extends ChangeNotifier {
 
   bool _loading = false;
   List<Character> _charactersListModel = [];
-  late CharacterError _userError;
+  CharacterError? _characterError;
   late Character _selectedCharacter;
 
   bool get loading => _loading;
   List<Character> get charactersListModel => _charactersListModel;
-  CharacterError get userError => _userError;
+  CharacterError? get characterError => _characterError;
   Character get selectedCharacter => _selectedCharacter;
 
   CharactersViewModel() {
@@ -28,12 +29,12 @@ class CharactersViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  setCharacterListModel(List<Character> charactersListModel) {
-    _charactersListModel = charactersListModel;
+  setCharacterListModel(Response response) {
+    _charactersListModel = response.data.results;
   }
 
-  setCharacterError(CharacterError userError) {
-    _userError = userError;
+  setCharacterError(CharacterError characterError) {
+    _characterError = characterError;
   }
 
   setSelectedCharacter(Character character) {
@@ -44,7 +45,7 @@ class CharactersViewModel extends ChangeNotifier {
     setLoading(true);
     var response = await CharactersServices.getCharacters();
     if (response is Success) {
-      setCharacterListModel(response.response as List<Character>);
+      setCharacterListModel(response.response as Response);
     }
     if (response is Failure) {
       CharacterError userError = CharacterError(

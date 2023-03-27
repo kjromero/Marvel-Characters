@@ -4,10 +4,10 @@ import 'package:marvel_characters/characters/models/character.dart';
 
 import 'app_title.dart';
 
-class CharacterList extends StatelessWidget {
+class CharacterItem extends StatelessWidget {
   final Character character;
   final VoidCallback onTap;
-  const CharacterList({super.key, required this.character, required this.onTap});
+  const CharacterItem({super.key, required this.character, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
