@@ -14,17 +14,29 @@ class CharacterItem extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Row(
           children: [
-            AppTitle(text: character.name),
-            Text(
-              character.description,
-              style: const TextStyle(color: Colors.black),
+            Container(
+              width: 100,
+              height: 100,
+              child: FadeInImage.assetNetwork(
+                placeholder: 'assets/images/loading.gif',
+                image: "${character.thumbnail.path}.${character.thumbnail.extension.toString().split('.').last.toLowerCase()}"
+              )
             ),
+            Expanded(
+                child: Column(
+                  children: [
+                    AppTitle(text: character.name),
+                    Text(
+                      character.description,
+                      style: const TextStyle(color: Colors.black),
+                    ),
+                  ],
+                ),
+            )
           ],
-        ),
+        )
       ),
     );
   }
